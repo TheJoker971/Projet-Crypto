@@ -3,7 +3,20 @@ package main
 import (
 	"fmt"
 	"net"
+	"net/http"
+	"io"
 )
+
+
+func getPair(pair string) {
+	link := fmt.Sprintf("https://api.kraken.com/0/public/Ticker?pair=%s",pair)
+	resp, err := http.Get(link)
+	if err != nil {
+		// handle error
+	}
+	defer resp.Body.Close()
+	body, err := io.ReadAll(resp.Body)
+}
 
 func handleConnection(conn net.Conn) {
 	conn.RemoteAddr()
